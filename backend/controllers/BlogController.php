@@ -129,10 +129,15 @@ class BlogController extends Controller
     {
         $model = new Blog();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['check', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->status_id = Yii::$app->request->post()['Blog']['status_id']) {
+                $model->save();
+            }
         }
-
+        echo '<pre>';
+        print_r($model->save());
+        die;
+        echo '</pre>';
         return $this->render('check', [
             'model' => $model,
         ]);

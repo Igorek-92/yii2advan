@@ -10,7 +10,7 @@ use backend\controllers\BlogController;
 
 /* @var $model common\models\Blog */
 
-$this->title = 'tests';
+$this->title = 'checkboxList';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-about">

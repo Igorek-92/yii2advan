@@ -35,7 +35,7 @@ class Blog extends \yii\db\ActiveRecord
         return [
             [['title', 'url', 'image', 'keyid'], 'required'],
             [['text'], 'string'],
-            [['status_id', 'sort'], 'integer'],
+            [['sort'], 'integer'],
             [['status_id'], 'safe'],
             [['add_date'], 'safe'],
             [['title', 'url'], 'string', 'max' => 150],
