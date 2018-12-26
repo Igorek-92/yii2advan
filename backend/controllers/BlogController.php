@@ -124,4 +124,17 @@ class BlogController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionCheck()
+    {
+        $model = new Blog();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['check', 'id' => $model->id]);
+        }
+
+        return $this->render('check', [
+            'model' => $model,
+        ]);
+    }
 }
