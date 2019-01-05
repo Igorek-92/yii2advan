@@ -60,4 +60,15 @@ class Blog extends \yii\db\ActiveRecord
             'keyid' => 'Keyid',
         ];
     }
+
+    public function getStatus_idArray()
+    {
+        return $this->status_id;
+    }
+
+    public function setStatus_idArray($value)
+    {
+        return $this->status_id = implode(',', $value);
+
+    }
 }

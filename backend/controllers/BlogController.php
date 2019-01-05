@@ -113,9 +113,29 @@ class BlogController extends Controller
      * Finds the Blog model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Blog the loaded model
+     * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
+
+
+    public function actionCheck()
+    {
+        $model = new Blog();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->status_id = Yii::$app->request->post()['Blog']['status_id'];
+            $model->getStatus_idArray();
+            $model->save();
+        }
+//        echo '<pre>';
+//        print_r(Yii::$app->request->post());
+//        die;
+//        echo '</pre>';
+        return $this->render('check', [
+            'model' => $model,
+        ]);
+    }
+
     protected function findModel($id)
     {
         if (($model = Blog::findOne($id)) !== null) {
@@ -123,23 +143,5 @@ class BlogController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-    public function actionCheck()
-    {
-        $model = new Blog();
-
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->status_id = Yii::$app->request->post()['Blog']['status_id']) {
-                $model->save();
-            }
-        }
-        echo '<pre>';
-        print_r($model->save());
-        die;
-        echo '</pre>';
-        return $this->render('check', [
-            'model' => $model,
-        ]);
     }
 }
