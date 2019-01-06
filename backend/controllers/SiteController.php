@@ -1,7 +1,8 @@
 <?php
 namespace backend\controllers;
 
-use common\models\Countries;
+use common\models\Country;
+use common\models\City;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -61,17 +62,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-
-
-        $customer = Countries::findOne('1');
-        $orders = $customer;
-        echo '<pre>';
-        print_r($customer);
-        die;
-        echo '</pre>';
-        return $this->render('index', [
-            'orders' => $orders,
-        ]);
+//        echo '<pre>';
+//        print_r($model->city);die;
+//        echo '</pre>';
+        return $this->render('index');
     }
 
     /**

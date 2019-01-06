@@ -19,7 +19,6 @@ $this->title = 'My Yii Application';
         <div class="row">
             <div class="col-lg-4">
                 <h2>Heading</h2>
-                <?php echo $orders['title_ru'] ?>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
                     dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
                     ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
@@ -48,6 +47,15 @@ $this->title = 'My Yii Application';
                 <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
             </div>
         </div>
-
+        <!--        --><?php
+        //        foreach ($model as $m) {
+        //            // обращение к модели City
+        //            $city = $m->city;
+        //            echo   '<li>' . $m->name.'</ul>';
+        //            foreach ($city as $c) {
+        //                echo   '<ul>' . $c->name .'</ul>';
+        //            }
+        //        }
+        //        ?>
     </div>
 </div>
