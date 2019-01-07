@@ -3,6 +3,7 @@ namespace backend\controllers;
 
 use common\models\Country;
 use common\models\City;
+use common\models\User;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
