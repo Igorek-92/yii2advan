@@ -16,7 +16,24 @@ return [
         'admin' => [
             'class' => 'mdm\admin\Module',
             'layout' => 'left-menu',
-
+            'mainLayout' => '@app/views/layouts/main.php',
+            'controllerMap' => [
+                'assignment' => [
+                    'class' => 'mdm\admin\controllers\AssignmentController',
+                    /* 'userClassName' => 'app\models\User', */
+                    'idField' => 'id',
+                    'usernameField' => 'username',
+                ],
+            ],
+            'as access' => [
+                'class' => 'mdm\admin\components\AccessControl',
+                'allowActions' => [
+                    'site/*',
+//                    'admin/*',
+//            'rbac/*',
+//            'some-controller/some-action',
+                ]
+            ],
         ]
     ],
     'components' => [
@@ -28,8 +45,8 @@ return [
             'csrfParam' => '_csrf-backend',
         ],
         'user' => [
-            'identityClass' => 'mdm\admin\models\User',
-            'loginUrl' => ['admin/user/login'],
+            'identityClass' => 'common\models\User',
+            'loginUrl' => ['site/login'],
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend
@@ -56,13 +73,6 @@ return [
             ],
         ],
     ],
-    'as access' => [
-        'class' => 'mdm\admin\components\AccessControl',
-        'allowActions' => [
-            'site/*',
-            'admin/*',
-            'some-controller/some-action',
-        ]
-    ],
+
     'params' => $params,
 ];

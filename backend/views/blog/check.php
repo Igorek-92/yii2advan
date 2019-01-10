@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php $form = ActiveForm::begin([
     ]) ?>
     <?= $form->field($model, 'status_id')
-        ->checkboxList(ArrayHelper::map(Blog::find()->all(), 'id', 'status_id')) ?>
+        ->checkboxList(Blog::find()->select(['status_id', 'id'])->indexBy('id')->column()) ?>
     <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary']) ?>
     <?php ActiveForm::end(); ?>
 </div>

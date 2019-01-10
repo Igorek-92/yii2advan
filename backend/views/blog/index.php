@@ -41,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'add_date',
             //'image',
             //'keyid',
+            'author',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

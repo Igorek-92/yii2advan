@@ -6,6 +6,7 @@ use Yii;
 use common\models\Blog;
 use common\models\BlogSearch;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -65,11 +66,15 @@ class BlogController extends Controller
     public function actionCreate()
     {
         $model = new Blog();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+//        echo '<pre>';
+//        print_r(Yii::$app->request->post());
+//        echo '</pre>';die;
+            $model->author = Yii::$app->user->id;
+            if ($model->validate() && $model->save()) {
+                return $this->redirect(['blog/index']);
+            }
         }
-
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -85,11 +90,12 @@ class BlogController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        if (!yii::$app->user->can('updateOwnBlog', ['blog' => $model])) {
+            throw new ForbiddenHttpException('Нет прав');
+        }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
         return $this->render('update', [
             'model' => $model,
         ]);
@@ -101,11 +107,16 @@ class BlogController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws ForbiddenHttpException
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        if (!yii::$app->user->can('updateOwnBlog', ['blog' => $model])) {
+            throw new ForbiddenHttpException('Нет прав');
+        }
 
+        $model->delete();
         return $this->redirect(['index']);
     }
 
@@ -121,16 +132,15 @@ class BlogController extends Controller
     public function actionCheck()
     {
         $model = new Blog();
-
+        $model->status_id = Blog::find()->where('status_id')->all();
         if ($model->load(Yii::$app->request->post())) {
             $model->status_id = Yii::$app->request->post()['Blog']['status_id'];
-            $model->getStatus_idArray();
             $model->save();
         }
+        $model->save();
 //        echo '<pre>';
 //        print_r(Yii::$app->request->post());
-//        die;
-//        echo '</pre>';
+//        echo '</pre>';die;
         return $this->render('check', [
             'model' => $model,
         ]);

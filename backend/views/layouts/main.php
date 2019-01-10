@@ -36,14 +36,26 @@ AppAsset::register($this);
                 'class' => 'navbar-inverse navbar-fixed-top',
             ],
         ]);
-        $menuItems = [
+        if (Yii::$app->user->identity->id === 1) {
+            $menuItems = [
+                ['label' => 'CRUD', 'url' => ['/admin']],
+                ['label' => 'Home', 'url' => ['/site/index']],
+                ['label' => 'Blog', 'url' => ['/blog']],
+                ['label' => 'Check', 'url' => ['/blog/check']],
+                ['label' => 'Страны', 'url' => ['/country']],
+                ['label' => 'Города', 'url' => ['/city']],
+                ['label' => 'Регионы', 'url' => ['/region']],
+            ];
+        } else {
+            $menuItems = [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'Blog', 'url' => ['/blog']],
             ['label' => 'Check', 'url' => ['/blog/check']],
             ['label' => 'Страны', 'url' => ['/country']],
             ['label' => 'Города', 'url' => ['/city']],
-            ['label' => 'Районы', 'url' => ['/region']],
+                ['label' => 'Регионы', 'url' => ['/region']],
         ];
+        }
         if (Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
         } else {
@@ -63,7 +75,12 @@ AppAsset::register($this);
         NavBar::end();
     }
     ?>
-
+    <?php
+    //        echo '<pre>';
+    //        print_r(\common\models\User::find()->where(['username' => 'admin'])->one());
+    //        echo '</pre>';die;
+    //
+    //?>
     <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

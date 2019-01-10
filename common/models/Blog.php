@@ -16,9 +16,12 @@ use Yii;
  * @property string $add_date
  * @property string $image
  * @property string $keyid
+ * @property int|string author
  */
 class Blog extends \yii\db\ActiveRecord
 {
+
+
     /**
      * {@inheritdoc}
      */
@@ -38,6 +41,7 @@ class Blog extends \yii\db\ActiveRecord
             [['sort'], 'integer'],
             [['status_id'], 'safe'],
             [['add_date'], 'safe'],
+            [['author'], 'safe'],
             [['title', 'url'], 'string', 'max' => 150],
             [['image', 'keyid'], 'string', 'max' => 255],
         ];
@@ -58,17 +62,21 @@ class Blog extends \yii\db\ActiveRecord
             'add_date' => 'Add Date',
             'image' => 'Image',
             'keyid' => 'Keyid',
+            'author' => 'author',
         ];
     }
 
+    private $_status_id;
+
     public function getStatus_idArray()
     {
-        return $this->status_id;
+        return $this->_status_id;
     }
 
     public function setStatus_idArray($value)
     {
-        return $this->status_id = implode(',', $value);
-
+        return $this->_status_id = (array)$value;
     }
+
+
 }
