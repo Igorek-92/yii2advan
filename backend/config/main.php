@@ -12,11 +12,12 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'language' => 'Ru-ru',
+    'layout' => 'adminmain',
     'modules' => [
         'admin' => [
             'class' => 'mdm\admin\Module',
             'layout' => 'left-menu',
-            'mainLayout' => '@app/views/layouts/main.php',
+            'mainLayout' => '@app/views/layouts/adminmain.php',
             'controllerMap' => [
                 'assignment' => [
                     'class' => 'mdm\admin\controllers\AssignmentController',
